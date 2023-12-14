@@ -1,22 +1,33 @@
 import axios, { type AxiosInstance } from "axios";
 
-interface TongYiOpt {
+export interface TongYiOpt {
   SSE: boolean; // sse mode
   model: Model;
 }
+
+export type Model =
+  | "qwen-turbo"
+  | "qwen-plus"
+  | "qwen-max"
+  | "qwen-max-1201"
+  | "qwen-max-longcontext";
+
+export type TalkHistory = {
+  input: Messages;
+};
+
+type Messages = {
+  content: string;
+  role: Role;
+}[];
+
+type Role = "system" | "user" | "assistant";
 
 axios.interceptors.response.use((config) => {
   if (config.status === 200) {
     return config.data;
   }
 });
-
-type Model =
-  | "qwen-turbo"
-  | "qwen-plus"
-  | "qwen-max"
-  | "qwen-max-1201"
-  | "qwen-max-longcontext";
 
 class TongYi {
   private client: AxiosInstance;
@@ -38,6 +49,10 @@ class TongYi {
     });
   }
 
+  public changeModel = (model: Model) => {
+    this.model = model;
+  };
+
   public sendPrompt = (prompt: string) => {
     return this.client({
       method: "post",
@@ -45,6 +60,18 @@ class TongYi {
         model: this.model,
         input: {
           prompt: prompt,
+        },
+      },
+    });
+  };
+
+  public sendMessage = (msg: Messages) => {
+    return this.client({
+      mothod: "post",
+      data: {
+        model: this.model,
+        input: {
+          messages: msg,
         },
       },
     });
