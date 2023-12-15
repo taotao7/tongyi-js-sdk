@@ -6,7 +6,7 @@
   "author": "taotao7",
   "repository": {
     "type": "git",
-    "url": "https://github.com/taotao7/tongyi-js-sdk"
+    "url": "git@github.com:taotao7/tongyi-js-sdk.git"
   },
   "scripts": {
     "build": "npm run build:node && npm run build:browser",
