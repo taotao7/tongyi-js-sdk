@@ -4,6 +4,10 @@
   "description": "tongyi js sdk",
   "main": "src/index.ts",
   "author": "taotao7",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taotao7/tongyi-js-sdk"
+  },
   "scripts": {
     "build": "npm run build:node && npm run build:browser",
     "build:node": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.cjs",
