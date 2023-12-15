@@ -1,27 +1,5 @@
 import axios, { type AxiosInstance } from "axios";
-
-export interface TongYiOpt {
-  SSE: boolean; // sse mode
-  model: Model;
-}
-
-export type Model =
-  | "qwen-turbo"
-  | "qwen-plus"
-  | "qwen-max"
-  | "qwen-max-1201"
-  | "qwen-max-longcontext";
-
-export type TalkHistory = {
-  input: Messages;
-};
-
-type Messages = {
-  content: string;
-  role: Role;
-}[];
-
-type Role = "system" | "user" | "assistant";
+import { type Messages, type Model, type TongYiOpt } from "./index";
 
 axios.interceptors.response.use((config) => {
   if (config.status === 200) {
@@ -32,10 +10,11 @@ axios.interceptors.response.use((config) => {
 class TongYi {
   private client: AxiosInstance;
   private model: Model;
+  private history: Messages = [];
 
   constructor(
     apiKey: string,
-    opt: TongYiOpt = { SSE: false, model: "qwen-turbo" },
+    opt: TongYiOpt = { SSE: false, model: "qwen-turbo" }
   ) {
     this.model = opt.model;
     this.client = axios.create({
@@ -65,16 +44,30 @@ class TongYi {
     });
   };
 
-  public sendMessage = (msg: Messages) => {
-    return this.client({
-      mothod: "post",
+  public sendMessage = async (
+    msg: Messages,
+    opt: { newMsg: boolean } = { newMsg: false }
+  ) => {
+    // clean history
+    if (opt.newMsg) {
+      this.history = [];
+    }
+
+    const res = await this.client({
+      method: "post",
       data: {
         model: this.model,
         input: {
-          messages: msg,
+          messages: this.history.concat(msg),
         },
       },
     });
+
+    this.history.push({
+      role: "assistant",
+      content: res.data.output.text,
+    });
+    return res;
   };
 }
 
