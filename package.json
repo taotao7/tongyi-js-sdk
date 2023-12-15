@@ -1,6 +1,6 @@
 {
   "name": "@taotao7/tongyi-js-sdk",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "tongyi js sdk",
   "main": "src/index.ts",
   "author": "taotao7",
@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git@github.com:taotao7/tongyi-js-sdk.git"
   },
+  "file": [
+    "src/**/*"
+  ],
   "scripts": {
     "build": "npm run build:node && npm run build:browser",
     "build:node": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.cjs",
@@ -29,5 +32,8 @@
   },
   "dependencies": {
     "axios": "^1.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
