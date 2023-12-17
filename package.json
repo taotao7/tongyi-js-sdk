@@ -1,6 +1,6 @@
 {
   "name": "@taotao7/tongyi-js-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "tongyi js sdk",
   "main": "src/index.ts",
   "author": "taotao7",
@@ -9,7 +9,8 @@
     "url": "git@github.com:taotao7/tongyi-js-sdk.git"
   },
   "file": [
-    "src/**/*"
+    "src/**/*",
+    "build/**/*"
   ],
   "scripts": {
     "build": "npm run build:node && npm run build:browser",
