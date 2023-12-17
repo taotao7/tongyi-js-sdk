@@ -1,8 +1,8 @@
 {
   "name": "@taotao7/tongyi-js-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "tongyi js sdk",
-  "main": "src/index.ts",
+  "main": "dist/index.cjs",
   "author": "taotao7",
   "repository": {
     "type": "git",
