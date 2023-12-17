@@ -14,7 +14,7 @@ class TongYi {
 
   constructor(
     apiKey: string,
-    opt: TongYiOpt = { SSE: false, model: "qwen-turbo" }
+    opt: TongYiOpt = { SSE: false, model: "qwen-turbo" },
   ) {
     this.model = opt.model;
     this.client = axios.create({
@@ -46,7 +46,7 @@ class TongYi {
 
   public sendMessage = async (
     msg: Messages,
-    opt: { newMsg: boolean } = { newMsg: false }
+    opt: { newMsg: boolean } = { newMsg: false },
   ) => {
     // clean history
     if (opt.newMsg) {
